@@ -333,10 +333,15 @@ function Chat({ apiUrl = 'http://192.168.0.231:4444/query', userId: propUserId }
             </div>
           ))}
           {isLoading && (
-            <div className="flex justify-start">
-              <div className="ml-2">
+            <div className="flex justify-end">
+              <div className="bg-white p-3 rounded-lg shadow flex items-center">
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1" style={{ animationDelay: '0.2s' }}></div>
+                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1" style={{ animationDelay: '0.4s' }}></div>
+              </div>
+              <div className="mr-2">
                 <div className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center text-white font-bold">
-                <svg 
+                  <svg 
                         width="30"
                         height="30"
                         viewBox="0 0 24 24"
@@ -362,13 +367,8 @@ function Chat({ apiUrl = 'http://192.168.0.231:4444/query', userId: propUserId }
                           d="M2.74884 14.6663C3.73056 16.6421 5.76939 18 8.12537 18H16.1254C18.5654 18 20.6652 16.5435 21.6029 14.4525C22.3722 13.9093 22.8746 13.0133 22.8746 12C22.8746 10.9867 22.3722 10.0907 21.6029 9.54753C20.6652 7.45651 18.5654 6 16.1254 6H8.12537C5.76939 6 3.73056 7.3579 2.74884 9.33375C1.78448 9.83263 1.12537 10.8393 1.12537 12C1.12537 13.1607 1.78448 14.1674 2.74884 14.6663ZM8.12537 8H16.1254C17.5088 8 18.7282 8.70234 19.4465 9.76991C19.7227 10.4593 19.8746 11.2119 19.8746 12C19.8746 12.7881 19.7227 13.5407 19.4465 14.2301C18.7282 15.2977 17.5088 16 16.1254 16H8.12537C5.91623 16 4.12537 14.2091 4.12537 12C4.12537 9.79086 5.91623 8 8.12537 8Z"
                           className="fill-white"
                         />
-                      </svg> 
+                  </svg> 
                 </div>
-              </div>
-              <div className="bg-white p-3 rounded-lg shadow flex items-center">
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1" style={{ animationDelay: '0.2s' }}></div>
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce mr-1" style={{ animationDelay: '0.4s' }}></div>
               </div>
             </div>
           )}
