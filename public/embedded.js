@@ -1,5 +1,11 @@
-// embedded.js
-window.addEventListener('DOMContentLoaded', (event) => {
+(function() {
+    // Get the data attributes from the script tag
+    const scriptTag = document.currentScript;  // This will reference the current script tag
+
+    const userId = scriptTag.getAttribute('data-user-id');
+    const userName = scriptTag.getAttribute('data-user-name');
+    const userEmail = scriptTag.getAttribute('data-user-email');
+
     // Create and inject the CSS styles
     const style = document.createElement('style');
     style.innerHTML = `
@@ -66,24 +72,28 @@ window.addEventListener('DOMContentLoaded', (event) => {
     const iframeContainer = document.createElement('div');
     iframeContainer.id = 'iframe-container';
     const iframe = document.createElement('iframe');
-    iframe.src = 'http://localhost:3000';
+    iframe.src = 'http://localhost:3003';  // URL of the chatbot app
     iframe.title = 'چت';
     iframeContainer.appendChild(iframe);
-    document.body.appendChild(iframeContainer); // Append to body
+    document.body.appendChild(iframeContainer);
 
-    // Function to toggle the iframe
+    // Send user data to iframe once it is loaded
+    iframe.onload = () => {
+        const data = { userId, userName, userEmail };
+        console.log('Sending data to iframe:', data);
+        iframe.contentWindow.postMessage(data, '*');
+    };
+
     const toggleIframe = (show) => {
         if (show) {
             iframeContainer.style.display = 'block';
-            // Use setTimeout to ensure display: block is applied before adding the class
             setTimeout(() => {
                 iframeContainer.classList.add('show');
                 chatCircle.style.display = 'none'
             }, 10);
         } else {
             iframeContainer.classList.remove('show');
-                chatCircle.style.display = 'none'
-            // Wait for the animation to complete before hiding
+            chatCircle.style.display = 'none'
             setTimeout(() => {
                 iframeContainer.style.display = 'none';
                 chatCircle.style.display = 'flex'
@@ -91,13 +101,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     };
 
-    // Toggle iframe visibility on chat circle click
     chatCircle.addEventListener('click', () => {
         const isVisible = iframeContainer.classList.contains('show');
         toggleIframe(!isVisible);
     });
 
-    // Close iframe when clicking outside
     document.addEventListener('click', (event) => {
         if (iframeContainer.classList.contains('show') && 
             !iframeContainer.contains(event.target) && 
@@ -106,10 +114,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 
-    // Listen for messages from the iframe (for close button clicks)
     window.addEventListener('message', (event) => {
         if (event.data === 'closeChat') {
             toggleIframe(false);
         }
     });
-});
+})();
